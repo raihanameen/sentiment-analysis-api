@@ -12,8 +12,6 @@ const swaggerConfig = require("./config/swagger");
 
 //Configuring the Express Middleware
 var app = express();
-const expressSwagger = require("express-swagger-generator")(app);
-expressSwagger(swaggerConfig(__dirname, port));
 
 // var accessLogStream = fs.createWriteStream(__dirname + '/logs/access.log', {flags: 'a'})
 
@@ -23,6 +21,9 @@ app.use(morgan("common"));
 
 //Set PORT to Dynamic Environments to run on any Server
 var port = process.env.PORT || 3001;
+
+const expressSwagger = require("express-swagger-generator")(app);
+expressSwagger(swaggerConfig(__dirname, port));
 
 //Configure Express to Recieve JSON and extended URLencoded formats
 app.use(bodyParser.json()); // support json encoded bodies
