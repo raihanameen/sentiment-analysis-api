@@ -1,24 +1,25 @@
-'use strict'
-var http = require('http');
-var express = require('express');
-var cors = require('cors');
-var bodyParser = require('body-parser');
-var morgan = require('morgan');
-var fs = require('fs');
-const routes = require('./routes/nlp');
-var path = require('path')
+"use strict";
+var http = require("http");
+var express = require("express");
+var cors = require("cors");
+var bodyParser = require("body-parser");
+var morgan = require("morgan");
+var fs = require("fs");
+const routes = require("./routes/nlp");
+var path = require("path");
 
+const swaggerConfig = require("./config/swagger");
 
 //Configuring the Express Middleware
 var app = express();
+const expressSwagger = require("express-swagger-generator")(app);
+expressSwagger(swaggerConfig(__dirname, port));
 
 // var accessLogStream = fs.createWriteStream(__dirname + '/logs/access.log', {flags: 'a'})
 
 //Configure Morgan's Logging Formats
 // app.use(morgan('common', {stream: accessLogStream}))    //UNCOMMENT TO ENABLE FILE LOGGING
-app.use(morgan('common'));
-
-
+app.use(morgan("common"));
 
 //Set PORT to Dynamic Environments to run on any Server
 var port = process.env.PORT || 3001;
@@ -27,19 +28,23 @@ var port = process.env.PORT || 3001;
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-app.use(cors({
-    exposedHeaders : "*"
-}));
+app.use(
+  cors({
+    exposedHeaders: "*",
+  })
+);
 
-app.use(bodyParser.json({
-    limit: "50mb"
-}))
+app.use(
+  bodyParser.json({
+    limit: "50mb",
+  })
+);
 //Set RESTful routes
 
-app.get('/', function(req, res) {
+app.get("/", function (req, res) {
   res.status(200).json({
-      status: 'success',
-  })
+    status: "success",
+  });
 });
 //Route for GET
 
