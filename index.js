@@ -5,7 +5,7 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var fs = require('fs');
-
+const routes = require('./routes/nlp');
 var path = require('path')
 
 
@@ -17,6 +17,7 @@ var app = express();
 //Configure Morgan's Logging Formats
 // app.use(morgan('common', {stream: accessLogStream}))    //UNCOMMENT TO ENABLE FILE LOGGING
 app.use(morgan('common'));
+
 
 
 //Set PORT to Dynamic Environments to run on any Server
@@ -42,7 +43,7 @@ app.get('/', function(req, res) {
 });
 //Route for GET
 
-
+app.use("/api/v1", routes);
 //Route for file uploads
 
 app.listen(port);
