@@ -11,7 +11,7 @@ const {
  * @returns {object} 200 - Sentiment Analysis
  * @returns {Error}  default - Unexpected error
  */
- router.get("/analysis", sentimentAnalysisHandler);
+ router.post("/analysis", sentimentAnalysisHandler);
 
  module.exports = router;
 

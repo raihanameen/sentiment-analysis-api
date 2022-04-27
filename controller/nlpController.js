@@ -1,24 +1,15 @@
-exports.sentimentAnalysisHandler = async (req, res) => {
+const sentimentHandler = require("sentiment");
 
+var sentiment = new sentimentHandler();
+
+exports.sentimentAnalysisHandler = async (req, res) => {
+  console.log(req.body.input);
+  var result = sentiment.analyze(req.body.input);
+  console.log(result);
   res.status(200).json({
-      status: 'success',
-      data: {
-          "analysis": {
-              "sentiment": {
-                  "score": 0.5,
-                  "magnitude": 0.5
-              },
-              "keywords": [
-                  {
-                      "text": "test",
-                      "relevance": 0.5,
-                      "sentiment": {
-                          "score": 0.5,
-                          "magnitude": 0.5
-                      }
-                  }
-              ]
-          }
-      }
+    status: "success",
+    data: {
+      analysis: result,
+    },
   });
-}
+};
