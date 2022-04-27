@@ -14,5 +14,3 @@ const {
  router.get("/analysis", sentimentAnalysisHandler);
 
  module.exports = router;
-
- 
